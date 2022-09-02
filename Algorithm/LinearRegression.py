@@ -6,6 +6,7 @@ from sklearn import model_selection
 from sklearn.metrics import r2_score
 
 data = pd.read_csv('/content/drive/MyDrive/Python Data analysis/insurance.csv')
+#https://www.kaggle.com/datasets/mirichoi0218/insurance
 
 nsex = data['sex']
 nsmoker = data['smoker']
