@@ -34,5 +34,5 @@ result = clf.predict(X_test)
 print(result)
 accuracy = accuracy_score(y_test, result)
 print(accuracy)
-#accuracy = 0.6625
+#accuracy = 0.3375
 
