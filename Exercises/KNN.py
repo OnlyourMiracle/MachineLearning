@@ -1,10 +1,7 @@
 from numpy import *
 import operator
+from os import listdir
 
-def createDataSet():
-    group = array([[1.0, 1.1], [1.0, 1.0], [0, 0], [0, 0.1]])
-    labels = ['A', 'A', 'B', 'B']
-    return group, labels
 
 def classifyo(inX, dataSet, labels, k):
     dataSetSize = dataSet.shape[0]
@@ -16,7 +13,7 @@ def classifyo(inX, dataSet, labels, k):
     classCount={}
     for i in range(k):
         voteIlabel = labels[sortedDistIndicies[i]]
-        classCount[voteIlabel] = classCount.get(voteIlabel, 0)
+        classCount[voteIlabel] = classCount.get(voteIlabel, 0) + 1
     sortedClassCount = sorted(classCount.items(), key=operator.itemgetter(1), reverse=True)
     return sortedClassCount[0][0]
 
@@ -78,3 +75,28 @@ def img2vector(filename):
         for j in range(32):
             returnVect[0, 32*i + j] = int(lineStr[j])
         return returnVect
+
+def handwritingClassTest():
+    hwLabels = []
+    trainingFileList = listdir('/root/Python/MachineLearning/Exercises/Ch02-KNN/trainingDigits')
+    m = len(trainingFileList)
+    trainingMat = zeros((m, 1024))
+    for i in range(m):
+        fileNmaeStr = trainingFileList[i]
+        fileStr = fileNmaeStr.split('.')[0]
+        classNumStr = int(fileStr.split('_')[0])
+        hwLabels.append(classNumStr)
+        trainingMat[i, :] = img2vector('/root/Python/MachineLearning/Exercises/Ch02-KNN/trainingDigits/%s' %fileNmaeStr)
+    testFileList = listdir('/root/Python/MachineLearning/Exercises/Ch02-KNN/testDigits')
+    errorCount = 0.0
+    mTest = len(testFileList)
+    for i in range(mTest):
+        fileNmaeStr = testFileList[i]
+        fileStr = fileNmaeStr.split('.')[0]
+        classNumStr = int(fileStr.split('_')[0])
+        vectorUnderTest = img2vector('/root/Python/MachineLearning/Exercises/Ch02-KNN/testDigits/%s' % fileNmaeStr)
+        classifierResult = classifyo(vectorUnderTest, trainingMat, hwLabels, 3)
+        print("the classifier came back with: %d, the real answer is: %d" %(classifierResult, classNumStr))
+        if(classifierResult != classNumStr):errorCount += 1.0
+    print("\nThe total number of errors is: %d" % errorCount)
+    print("\nThe total error rate is: %f" % (errorCount/float(mTest)))
