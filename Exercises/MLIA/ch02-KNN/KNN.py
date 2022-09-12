@@ -1,3 +1,6 @@
+#KNN.py
+
+
 from numpy import *
 import operator
 from os import listdir
@@ -29,7 +32,7 @@ def file2matrix(filename):
         listFormLine = line.split('\t')
         returnMat[index, :] = listFormLine[0:3]
         labels = {'didntLike':1,'smallDoses':2,'largeDoses':3}
-        classLabelVector.append(int(listFormLine[-1]))
+        classLabelVector.append(int(listFormLine[-1]))  #pay attention
         index += 1
     return returnMat, classLabelVector
 
