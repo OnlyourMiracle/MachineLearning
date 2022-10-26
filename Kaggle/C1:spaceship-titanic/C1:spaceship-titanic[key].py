@@ -1,7 +1,7 @@
 #accuracy_score:0.808
 
 !pip install scikit-learn==0.23.2
-#!pip install pycaret[full]
+!pip install pycaret[full]
 from pycaret.classification import *
 
 import numpy as np
