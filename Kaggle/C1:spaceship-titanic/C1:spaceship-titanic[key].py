@@ -1,8 +1,8 @@
-'''
+
 !pip install scikit-learn==0.23.2
-#!pip install pycaret[full]
+!pip install pycaret[full]
 from pycaret.classification import *
-'''
+
 import numpy as np
 import sklearn
 import pandas as pd
@@ -150,7 +150,7 @@ s = setup(data=train,
           normalize_method = 'robust')
 
 top4 = compare_models()
-print(top4)
+print(top4.get_params())
 
 !pip install scikit-optimize
 !pip install tune-sklearn ray[tune]
@@ -159,12 +159,12 @@ import optuna
 !pip install hpbandster ConfigSpace
 
 
-lightgbm = tune_model(create_model('catboost'), choose_better = True, n_iter = 20)
-'''
-lightgbm2 = tune_model(create_model('lightgbm'), optimize='Accuracy', 
+#lightgbm = tune_model(create_model('catboost'), choose_better = True, n_iter = 20)
+
+lightgbm2 = tune_model(create_model('catboost'), optimize='Accuracy', 
                         search_library='scikit-optimize', search_algorithm='bayesian', 
                         choose_better = True, n_iter = 20)
-
+'''
 lightgbm3 = tune_model(create_model('lightgbm'), optimize='Accuracy',
                         search_library='tune-sklearn', search_algorithm='bayesian',
                         choose_better = True, n_iter = 20)
@@ -182,7 +182,7 @@ lightgbm6 = tune_model(create_model('lightgbm'), optimize='Accuracy',
                         choose_better = True, n_iter = 20)
 '''
 
-catboost_best = create_model('catboost')
+catboost_best = create_model('catboost',nan_mode= 'Min', eval_metric= 'Logloss', iterations=1000, sampling_frequency= 'PerTree', leaf_estimation_method= 'Newton', grow_policy= 'SymmetricTree', penalties_coefficient= 1, boosting_type= 'Plain', model_shrink_mode= 'Constant', feature_border_type= 'GreedyLogSum', eval_fraction= 0,  l2_leaf_reg= 3, random_strength= 1, rsm= 1, boost_from_average= False, model_size_reg= 0.5,  subsample= 0.800000011920929, use_best_model= False, class_names= [0, 1], depth= 6, posterior_sampling= False, border_count= 254, classes_count= 0, auto_class_weights= None, sparse_features_conflict_fraction= 0, leaf_estimation_backtracking= 'AnyImprovement', best_model_min_trees= 1, model_shrink_rate= 0, min_data_in_leaf= 1, loss_function= 'Logloss', learning_rate= 0.02582800015807152, score_function= 'Cosine', task_type= 'CPU', leaf_estimation_iterations= 10, bootstrap_type= 'MVS', max_leaves= 64)
 
 df_pred = predict_model(catboost_best, x_test)
 y_pred = df_pred.loc[:, ['Label']]
@@ -194,8 +194,5 @@ interpret_model(catboost_best)
 
 #interpreting model
 submission['Transported'] = y_pred
-submission.to_csv('submission.csv', index=False)
-
-#check model
-
+submission.to_csv('submission1.csv', index=False)
 
