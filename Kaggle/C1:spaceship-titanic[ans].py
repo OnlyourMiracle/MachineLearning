@@ -1,4 +1,5 @@
 #https://www.kaggle.com/competitions/spaceship-titanic/overview
+#accuray_score:0.79
 
 import numpy as np
 import pandas as pd
