@@ -173,23 +173,7 @@ lightgbm2 = tune_model(create_model('catboost'), optimize='Accuracy',
                         search_library='scikit-optimize', search_algorithm='bayesian', 
                         choose_better = True, n_iter = 20)
 print(lightgbm2)
-'''
-lightgbm3 = tune_model(create_model('lightgbm'), optimize='Accuracy',
-                        search_library='tune-sklearn', search_algorithm='bayesian',
-                        choose_better = True, n_iter = 20)
 
-lightgbm4 = tune_model(create_model('lightgbm'), optimize='Accuracy',
-                        search_library='tune-sklearn', search_algorithm='hyperopt',
-                        choose_better = True, n_iter = 20)
-
-lightgbm5 = tune_model(create_model('lightgbm'), optimize='Accuracy',
-                        search_library='tune-sklearn', search_algorithm='optuna',
-                        choose_better = True, n_iter = 20)
-
-lightgbm6 = tune_model(create_model('lightgbm'), optimize='Accuracy',
-                        search_library='optuna', search_algorithm='tpe',
-                        choose_better = True, n_iter = 20)
-'''
 
 catboost_best = create_model('catboost',nan_mode= 'Min', eval_metric= 'RMSE', iterations= 1000, sampling_frequency= 'PerTree', 
                              leaf_estimation_method= 'Newton', grow_policy= 'SymmetricTree', penalties_coefficient= 1, boosting_type= 'Plain',
