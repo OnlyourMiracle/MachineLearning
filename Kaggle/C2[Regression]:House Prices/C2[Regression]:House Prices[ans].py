@@ -1,5 +1,5 @@
 #link:https://www.kaggle.com/competitions/house-prices-advanced-regression-techniques/
-#accuracy_score=0.866
+#accuracy_score=0.866[1109/3993]
 
 !pip install scikit-learn==0.23.2
 !pip install pycaret[full]
